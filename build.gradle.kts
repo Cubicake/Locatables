@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(project(":logging"))
+    //compileOnly(project(":logging"))
 }
 
 dependencies {
