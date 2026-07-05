@@ -49,19 +49,19 @@ public class MutableBlockLocatable implements BlockLocatable, MutableLocatable {
 
     @Override
     public MutableLocatable setX(double x) {
-        this.x = (int) x;
+        this.x = (int) Math.floor(x);
         return this;
     }
 
     @Override
     public MutableLocatable setY(double y) {
-        this.y = (int) y;
+        this.y = (int) Math.floor(y);
         return this;
     }
 
     @Override
     public MutableLocatable setZ(double z) {
-        this.z = (int) z;
+        this.z = (int) Math.floor(z);
         return this;
     }
 
