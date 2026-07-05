@@ -27,6 +27,7 @@ tasks {
             "build_time" to buildTime.get(),
             "version" to version.toString()
         )
+        inputs.properties(gitProps)
         // build-properties is not used by the locatables library itself, but is included in the jar so that platforms can access it.
         filesMatching("build-properties/locatable-lib.yml") {
             expand(gitProps)
