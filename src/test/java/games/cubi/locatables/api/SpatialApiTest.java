@@ -129,8 +129,8 @@ class SpatialApiTest {
         MutableSpatialImpl mutableSpatial = new MutableSpatialImpl(0, 0, 0);
         MutableFloatingLocatable mutableLocatable = new MutableLocatableImpl(UUID.randomUUID(), 0, 0, 0);
 
-        assertThrows(ArithmeticException.class, mutableSpatial::normalize);
-        assertThrows(ArithmeticException.class, mutableLocatable::normalize);
+        assertThrows(ArithmeticException.class, mutableSpatial::normalise);
+        assertThrows(ArithmeticException.class, mutableLocatable::normalise);
     }
 
     @Test
@@ -183,7 +183,7 @@ class SpatialApiTest {
         mutable.scalarMultiply(0.5);
         assertCoordinates(mutable, 1, 2, 3);
 
-        mutable.set(3, 0, 0).normalize();
+        mutable.set(3, 0, 0).normalise();
         assertCoordinates(mutable, 1, 0, 0);
 
         mutable.setLocation(secondWorld, 8, 9, 10);

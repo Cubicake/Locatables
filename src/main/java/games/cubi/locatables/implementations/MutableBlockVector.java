@@ -34,10 +34,10 @@ public class MutableBlockVector implements MutableFloatingLocatable, BlockLocata
     }
 
     @Override
-    public MutableBlockVector normalize() {
+    public MutableBlockVector normalise() {
         double length = length();
         if (length == 0.0) {
-            throw new ArithmeticException("Cannot normalize a zero-length spatial");
+            throw new ArithmeticException("Cannot normalise a zero-length spatial");
         }
         return scalarMultiply(1.0 / length);
     }

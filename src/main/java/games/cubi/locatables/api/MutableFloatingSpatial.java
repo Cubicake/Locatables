@@ -6,13 +6,13 @@ package games.cubi.locatables.api;
  * produce fractional coordinates.
  */
 public interface MutableFloatingSpatial extends MutableSpatial {
-    default MutableFloatingSpatial normalize() {
+    default MutableFloatingSpatial normalise() {
         double x = x();
         double y = y();
         double z = z();
         double length = Math.sqrt(x * x + y * y + z * z);
         if (length == 0.0) {
-            throw new ArithmeticException("Cannot normalize a zero-length spatial");
+            throw new ArithmeticException("Cannot normalise a zero-length spatial");
         }
         double factor = 1.0 / length;
         setPosition(x * factor, y * factor, z * factor);

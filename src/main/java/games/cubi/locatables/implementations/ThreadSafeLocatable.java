@@ -97,12 +97,12 @@ public class ThreadSafeLocatable implements MutableFloatingLocatable, FloatingLo
     }
 
     @Override
-    public ThreadSafeLocatable normalize() {
+    public ThreadSafeLocatable normalise() {
         long stamp = lock.writeLock();
         try {
             double length = Math.sqrt(x * x + y * y + z * z);
             if (length == 0.0) {
-                throw new ArithmeticException("Cannot normalize a zero-length spatial");
+                throw new ArithmeticException("Cannot normalise a zero-length spatial");
             }
             x /= length;
             y /= length;

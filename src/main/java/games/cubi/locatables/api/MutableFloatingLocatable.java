@@ -95,8 +95,8 @@ public interface MutableFloatingLocatable extends MutableLocatable, MutableFloat
     }
 
     @Override
-    default MutableFloatingLocatable normalize() {
-        MutableFloatingSpatial.super.normalize();
+    default MutableFloatingLocatable normalise() {
+        MutableFloatingSpatial.super.normalise();
         return this;
     }
 
