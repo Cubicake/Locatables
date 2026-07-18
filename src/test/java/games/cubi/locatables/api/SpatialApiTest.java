@@ -80,10 +80,10 @@ class SpatialApiTest {
         games.cubi.locatables.implementations.MutableBlockLocatable mutableBlock =
                 new games.cubi.locatables.implementations.MutableBlockLocatable(world, -2, 3, 4);
 
-        MutableLocatable mutableCentre = mutable.centre();
-        MutableLocatable immutableCentre = immutable.centre();
-        MutableLocatable blockCentre = block.centre();
-        MutableLocatable mutableBlockCentre = mutableBlock.centre();
+        MutableFloatingLocatable mutableCentre = mutable.centre();
+        MutableFloatingLocatable immutableCentre = immutable.centre();
+        MutableFloatingLocatable blockCentre = block.centre();
+        MutableFloatingLocatable mutableBlockCentre = mutableBlock.centre();
 
         assertSame(mutable, mutableCentre);
         assertNotSame(immutable, immutableCentre);
@@ -127,7 +127,7 @@ class SpatialApiTest {
     @Test
     void zeroVectorCannotBeNormalized() {
         MutableSpatialImpl mutableSpatial = new MutableSpatialImpl(0, 0, 0);
-        MutableLocatable mutableLocatable = new MutableLocatableImpl(UUID.randomUUID(), 0, 0, 0);
+        MutableFloatingLocatable mutableLocatable = new MutableLocatableImpl(UUID.randomUUID(), 0, 0, 0);
 
         assertThrows(ArithmeticException.class, mutableSpatial::normalize);
         assertThrows(ArithmeticException.class, mutableLocatable::normalize);
@@ -145,10 +145,10 @@ class SpatialApiTest {
     }
 
     @Test
-    void mutableLocatableRestoresLegacyAndNewMutationSurfaces() {
+    void mutableFloatingLocatableProvidesContinuousMutationAndArithmetic() {
         UUID firstWorld = UUID.randomUUID();
         UUID secondWorld = UUID.randomUUID();
-        MutableLocatable mutable = new MutableLocatableImpl(firstWorld, 0, 0, 0);
+        MutableFloatingLocatable mutable = new MutableLocatableImpl(firstWorld, 0, 0, 0);
 
         mutable.setX(1).setY(2).setZ(3);
         assertCoordinates(mutable, 1, 2, 3);
@@ -246,7 +246,10 @@ class SpatialApiTest {
         assertInstanceOf(Spatial.class, immutable);
         assertFalse(immutable instanceof MutableSpatial);
         assertInstanceOf(MutableSpatial.class, mutable);
-        assertFalse(mutable instanceof MutableFloatingSpatial);
+        assertInstanceOf(MutableFloatingSpatial.class, mutable);
+        assertInstanceOf(MutableFloatingLocatable.class, mutable);
+        assertFalse(new games.cubi.locatables.implementations.MutableBlockLocatable(world, 1, 2, 3)
+                instanceof MutableFloatingLocatable);
         assertTrue(Spatial.class.isSealed());
         assertTrue(Locatable.class.isSealed());
         assertTrue(BlockSpatial.class.isSealed());

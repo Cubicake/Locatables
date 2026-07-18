@@ -1,7 +1,7 @@
 package games.cubi.locatables.implementations;
 
 import games.cubi.locatables.api.BlockLocatableEquality;
-import games.cubi.locatables.api.MutableLocatable;
+import games.cubi.locatables.api.MutableFloatingLocatable;
 import games.cubi.locatables.api.Spatial;
 
 import java.util.UUID;
@@ -11,7 +11,7 @@ import java.util.UUID;
  * blocks. It is deliberately not a {@code BlockSpatial}, because its exact
  * coordinates may be fractional.
  */
-public class MutableBlockVector implements MutableLocatable, BlockLocatableEquality {
+public class MutableBlockVector implements MutableFloatingLocatable, BlockLocatableEquality {
     private UUID world;
     private double mutableX;
     private double mutableY;

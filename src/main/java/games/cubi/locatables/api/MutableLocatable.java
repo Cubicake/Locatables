@@ -3,9 +3,9 @@ package games.cubi.locatables.api;
 import java.util.UUID;
 
 /**
- * The mutable locatable branch. Block implementations use
- * {@link MutableBlockLocatable}; arithmetic on those implementations is
- * quantized through their block setters.
+ * The mutable locatable branch. Continuous implementations that support
+ * fractional arithmetic use {@link MutableFloatingLocatable}; block
+ * implementations use {@link MutableBlockLocatable}.
  */
 public non-sealed interface MutableLocatable extends Locatable, MutableSpatial {
     @Override
@@ -85,57 +85,4 @@ public non-sealed interface MutableLocatable extends Locatable, MutableSpatial {
         return setLocation(world, x, y, z);
     }
 
-    default MutableLocatable normalize() {
-        double x = x();
-        double y = y();
-        double z = z();
-        double length = Math.sqrt(x * x + y * y + z * z);
-        if (length == 0.0) {
-            throw new ArithmeticException("Cannot normalize a zero-length spatial");
-        }
-        double factor = 1.0 / length;
-        return setPosition(x * factor, y * factor, z * factor);
-    }
-
-    default MutableLocatable add(Locatable locatable) {
-        return add((Spatial) locatable);
-    }
-
-    default MutableLocatable add(Spatial spatial) {
-        double x = x();
-        double y = y();
-        double z = z();
-        double otherX = spatial.x();
-        double otherY = spatial.y();
-        double otherZ = spatial.z();
-        return setPosition(x + otherX, y + otherY, z + otherZ);
-    }
-
-    default MutableLocatable add(double x, double y, double z) {
-        double currentX = x();
-        double currentY = y();
-        double currentZ = z();
-        return setPosition(currentX + x, currentY + y, currentZ + z);
-    }
-
-    default MutableLocatable subtract(Locatable locatable) {
-        return subtract((Spatial) locatable);
-    }
-
-    default MutableLocatable subtract(Spatial spatial) {
-        double x = x();
-        double y = y();
-        double z = z();
-        double otherX = spatial.x();
-        double otherY = spatial.y();
-        double otherZ = spatial.z();
-        return setPosition(x - otherX, y - otherY, z - otherZ);
-    }
-
-    default MutableLocatable scalarMultiply(double factor) {
-        double x = x();
-        double y = y();
-        double z = z();
-        return setPosition(x * factor, y * factor, z * factor);
-    }
 }

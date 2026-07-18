@@ -2,13 +2,13 @@ package games.cubi.locatables.implementations;
 
 import games.cubi.locatables.api.Locatable;
 import games.cubi.locatables.api.FloatingLocatableEquality;
-import games.cubi.locatables.api.MutableLocatable;
+import games.cubi.locatables.api.MutableFloatingLocatable;
 import games.cubi.locatables.api.Spatial;
 
 import java.util.UUID;
 import java.util.concurrent.locks.StampedLock;
 
-public class ThreadSafeLocatable implements MutableLocatable, FloatingLocatableEquality {
+public class ThreadSafeLocatable implements MutableFloatingLocatable, FloatingLocatableEquality {
     private UUID world;
     private double x;
     private double y;

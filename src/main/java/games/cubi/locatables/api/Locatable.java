@@ -35,12 +35,13 @@ public sealed interface Locatable extends ChunkSectionLocatable, Spatial, Strict
      * @return the mutated receiver or a new continuous mutable locatable
      */
     @Override
-    default MutableLocatable centre() {
+    default MutableFloatingLocatable centre() {
         double centreX = blockX() + 0.5;
         double centreY = blockY() + 0.5;
         double centreZ = blockZ() + 0.5;
-        if (this instanceof MutableLocatable mutable && !(this instanceof BlockSpatial)) {
-            return mutable.setPosition(centreX, centreY, centreZ);
+        if (this instanceof MutableFloatingLocatable locatable) {
+            locatable.setPosition(centreX, centreY, centreZ);
+            return locatable;
         }
         return new MutableLocatableImpl(world(), centreX, centreY, centreZ);
     }

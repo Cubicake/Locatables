@@ -3,6 +3,7 @@ package external;
 import games.cubi.locatables.api.ImmutableBlockSpatial;
 import games.cubi.locatables.api.ImmutableSpatial;
 import games.cubi.locatables.api.MutableBlockSpatial;
+import games.cubi.locatables.api.MutableFloatingLocatable;
 import games.cubi.locatables.api.MutableLocatable;
 import games.cubi.locatables.api.MutableSpatial;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 class ExternalSpatialImplementationTest {
     @Test
@@ -37,6 +39,23 @@ class ExternalSpatialImplementationTest {
         assertEquals(4, locatable.x());
         assertEquals(5, locatable.y());
         assertEquals(6, locatable.z());
+    }
+
+    @Test
+    void centreAllocatesForMutableLocatableWithoutFloatingOptIn() {
+        UUID world = UUID.randomUUID();
+        LegacyMutableLocatable locatable = new LegacyMutableLocatable(world, -1.2, 3.9, 4.0);
+
+        MutableFloatingLocatable centred = locatable.centre();
+
+        assertNotSame(locatable, centred);
+        assertEquals(world, centred.world());
+        assertEquals(-1.5, centred.x());
+        assertEquals(3.5, centred.y());
+        assertEquals(4.5, centred.z());
+        assertEquals(-1.2, locatable.x());
+        assertEquals(3.9, locatable.y());
+        assertEquals(4.0, locatable.z());
     }
 
     private record ExternalImmutable(double x, double y, double z) implements ImmutableSpatial {

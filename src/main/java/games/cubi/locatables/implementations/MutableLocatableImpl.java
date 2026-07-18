@@ -1,11 +1,11 @@
 package games.cubi.locatables.implementations;
 
 import games.cubi.locatables.api.FloatingLocatableEquality;
-import games.cubi.locatables.api.MutableLocatable;
+import games.cubi.locatables.api.MutableFloatingLocatable;
 
 import java.util.UUID;
 
-public class MutableLocatableImpl implements MutableLocatable, FloatingLocatableEquality {
+public class MutableLocatableImpl implements MutableFloatingLocatable, FloatingLocatableEquality {
     private double x;
     private double y;
     private double z;
