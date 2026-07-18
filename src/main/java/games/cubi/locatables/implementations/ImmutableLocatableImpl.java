@@ -1,19 +1,19 @@
 package games.cubi.locatables.implementations;
 
-import games.cubi.locatables.ImmutableLocatable;
+import games.cubi.locatables.api.ImmutableLocatable;
+import games.cubi.locatables.api.FloatingLocatableEquality;
 
 import java.util.UUID;
 
-public record ImmutableLocatableImpl(UUID world, double x, double y, double z) implements ImmutableLocatable {
-
+public record ImmutableLocatableImpl(UUID world, double x, double y, double z) implements ImmutableLocatable, FloatingLocatableEquality {
     @Override
     public LocatableType getType() {
         return LocatableType.Immutable;
     }
 
     @Override
-    public boolean equals(Object o) {
-        return isEqualTo(o);
+    public boolean equals(Object other) {
+        return isEqualTo(other);
     }
 
     @Override
@@ -29,10 +29,10 @@ public record ImmutableLocatableImpl(UUID world, double x, double y, double z) i
     @Override
     public boolean strictlyEquals(Object other) {
         if (this == other) return true;
-        if (!(other instanceof ImmutableLocatableImpl(UUID world1, double x1, double y1, double z1))) return false;
-        return this.world.equals(world1) &&
-                Double.doubleToLongBits(this.x) == Double.doubleToLongBits(x1) &&
-                Double.doubleToLongBits(this.y) == Double.doubleToLongBits(y1) &&
-                Double.doubleToLongBits(this.z) == Double.doubleToLongBits(z1);
+        if (!(other instanceof ImmutableLocatableImpl that)) return false;
+        return world.equals(that.world)
+                && Double.doubleToLongBits(x) == Double.doubleToLongBits(that.x)
+                && Double.doubleToLongBits(y) == Double.doubleToLongBits(that.y)
+                && Double.doubleToLongBits(z) == Double.doubleToLongBits(that.z);
     }
 }

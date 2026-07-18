@@ -1,11 +1,11 @@
 package games.cubi.locatables.implementations;
 
-import games.cubi.locatables.BlockLocatable;
-import games.cubi.locatables.MutableLocatable;
+import games.cubi.locatables.api.BlockLocatableEquality;
 
 import java.util.UUID;
 
-public class MutableBlockLocatable implements BlockLocatable, MutableLocatable {
+public class MutableBlockLocatable
+        implements games.cubi.locatables.api.MutableBlockLocatable, BlockLocatableEquality {
     private int x;
     private int y;
     private int z;
@@ -48,55 +48,45 @@ public class MutableBlockLocatable implements BlockLocatable, MutableLocatable {
     }
 
     @Override
-    public MutableLocatable setX(double x) {
-        this.x = (int) x;
-        return this;
-    }
-
-    @Override
-    public MutableLocatable setY(double y) {
-        this.y = (int) y;
-        return this;
-    }
-
-    @Override
-    public MutableLocatable setZ(double z) {
-        this.z = (int) z;
-        return this;
-    }
-
-    @Override
-    public MutableLocatable setX(int x) {
+    public MutableBlockLocatable setBlockX(int x) {
         this.x = x;
         return this;
     }
 
     @Override
-    public MutableLocatable setY(int y) {
+    public MutableBlockLocatable setBlockY(int y) {
         this.y = y;
         return this;
     }
 
     @Override
-    public MutableLocatable setZ(int z) {
+    public MutableBlockLocatable setBlockZ(int z) {
         this.z = z;
         return this;
     }
 
     @Override
-    public MutableLocatable setWorld(UUID world) {
+    public MutableBlockLocatable setBlockPosition(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
+    }
+
+    @Override
+    public MutableBlockLocatable setWorld(UUID world) {
         this.world = world;
         return this;
     }
 
     @Override
-    public boolean equals(Object o) {
-        return isEqual(o);
+    public boolean equals(Object other) {
+        return isEqualTo(other);
     }
 
     @Override
     public int hashCode() {
-        return blockHash();
+        return makeHash();
     }
 
     @Override
@@ -108,14 +98,6 @@ public class MutableBlockLocatable implements BlockLocatable, MutableLocatable {
     public boolean strictlyEquals(Object other) {
         if (this == other) return true;
         if (!(other instanceof MutableBlockLocatable that)) return false;
-        if (!(this.world.equals(that.world))) return false;
-
-        if (this.x != that.x) {
-            return false;
-        }
-        if (this.y != that.y) {
-            return false;
-        }
-        return this.z == that.z;
+        return x == that.x && y == that.y && z == that.z && world.equals(that.world);
     }
 }

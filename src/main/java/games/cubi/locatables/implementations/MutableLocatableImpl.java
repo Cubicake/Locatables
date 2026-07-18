@@ -1,10 +1,11 @@
 package games.cubi.locatables.implementations;
 
-import games.cubi.locatables.MutableLocatable;
+import games.cubi.locatables.api.FloatingLocatableEquality;
+import games.cubi.locatables.api.MutableLocatable;
 
 import java.util.UUID;
 
-public class MutableLocatableImpl implements MutableLocatable {
+public class MutableLocatableImpl implements MutableLocatable, FloatingLocatableEquality {
     private double x;
     private double y;
     private double z;
@@ -43,49 +44,40 @@ public class MutableLocatableImpl implements MutableLocatable {
     }
 
     @Override
-    public MutableLocatable setX(double x) {
+    public MutableLocatableImpl setX(double x) {
         this.x = x;
         return this;
     }
 
     @Override
-    public MutableLocatable setY(double y) {
+    public MutableLocatableImpl setY(double y) {
         this.y = y;
         return this;
     }
 
     @Override
-    public MutableLocatable setZ(double z) {
+    public MutableLocatableImpl setZ(double z) {
         this.z = z;
         return this;
     }
 
     @Override
-    public MutableLocatable setX(int x) {
+    public MutableLocatableImpl setPosition(double x, double y, double z) {
         this.x = x;
-        return this;
-    }
-
-    @Override
-    public MutableLocatable setY(int y) {
         this.y = y;
-        return this;
-    }
-
-    @Override
-    public MutableLocatable setZ(int z) {
         this.z = z;
         return this;
     }
 
-    public MutableLocatable setWorld(UUID world) {
+    @Override
+    public MutableLocatableImpl setWorld(UUID world) {
         this.world = world;
         return this;
     }
 
     @Override
-    public boolean equals(Object o) {
-        return isEqualTo(o);
+    public boolean equals(Object other) {
+        return isEqualTo(other);
     }
 
     @Override
@@ -102,14 +94,9 @@ public class MutableLocatableImpl implements MutableLocatable {
     public boolean strictlyEquals(Object other) {
         if (this == other) return true;
         if (!(other instanceof MutableLocatableImpl that)) return false;
-        if (!(this.world().equals(that.world()))) return false;
-
-        if (Double.doubleToLongBits(this.x()) != Double.doubleToLongBits(that.x())) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.y()) != Double.doubleToLongBits(that.y())) {
-            return false;
-        }
-        return Double.doubleToLongBits(this.z()) == Double.doubleToLongBits(that.z());
+        return world.equals(that.world)
+                && Double.doubleToLongBits(x) == Double.doubleToLongBits(that.x)
+                && Double.doubleToLongBits(y) == Double.doubleToLongBits(that.y)
+                && Double.doubleToLongBits(z) == Double.doubleToLongBits(that.z);
     }
 }

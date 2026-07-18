@@ -1,4 +1,4 @@
-package games.cubi.locatables;
+package games.cubi.locatables.api;
 
 import java.util.UUID;
 
