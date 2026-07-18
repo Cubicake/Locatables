@@ -78,17 +78,18 @@ public sealed interface Spatial extends SpatialChunkSection permits BlockSpatial
      *
      * @return the mutated receiver or a new continuous mutable spatial
      */
-    default MutableSpatial centre() {
+    default MutableFloatingSpatial centre() {
         double centreX = blockX() + 0.5;
         double centreY = blockY() + 0.5;
         double centreZ = blockZ() + 0.5;
-        if (this instanceof MutableSpatial mutable && !(this instanceof BlockSpatial)) {
-            return mutable.setPosition(centreX, centreY, centreZ);
+        if (this instanceof MutableFloatingSpatial spatial) {
+            spatial.setPosition(centreX, centreY, centreZ);
+            return spatial;
         }
         return new MutableSpatialImpl(centreX, centreY, centreZ);
     }
 
-    default MutableSpatial cloneAndIfBlockThenCentre() {
+    default MutableFloatingSpatial cloneAndIfBlockThenCentre() {
         if (this instanceof BlockSpatial) {
             return centre();
         }
