@@ -1,7 +1,9 @@
 package games.cubi.locatables.api;
 
 import games.cubi.locatables.implementations.ImmutableBlockLocatable;
+import games.cubi.locatables.implementations.ImmutableBlockSpatialImpl;
 import games.cubi.locatables.implementations.ImmutableLocatableImpl;
+import games.cubi.locatables.implementations.ImmutableSpatialImpl;
 import games.cubi.locatables.implementations.MutableBlockSpatialImpl;
 import games.cubi.locatables.implementations.MutableBlockVector;
 import games.cubi.locatables.implementations.MutableLocatableImpl;
@@ -21,6 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SpatialApiTest {
+    @Test
+    void immutableSpatialImplementationsExposeCoordinateOnlyEquality() {
+        ImmutableSpatial spatial = new ImmutableSpatialImpl(1.25, 2.5, 3.75);
+        ImmutableBlockSpatial blockSpatial = new ImmutableBlockSpatialImpl(1, 2, 3);
+
+        assertEquals(new ImmutableSpatialImpl(1.25, 2.5, 3.75), spatial);
+        assertEquals(new ImmutableBlockSpatialImpl(1, 2, 3), blockSpatial);
+        assertEquals(1.0, blockSpatial.x());
+    }
+
     @Test
     void projectsNegativeCoordinatesToBlocksAndChunks() {
         Spatial spatial = new ImmutableTestSpatial(-0.1, -16.0, -16.1);
