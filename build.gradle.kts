@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "games.cubi.locatables"
-version = "0.1.0"
+version = "0.2.0"
 
 val commitShort = providers.exec {
     commandLine("git", "rev-parse", "--short=8", "HEAD")
